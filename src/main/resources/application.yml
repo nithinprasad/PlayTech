@@ -1,0 +1,25 @@
+limit:
+  maxlimit: 10000
+scheduler:
+  interval: 100000  
+
+   
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    driverClassName: org.hsqldb.jdbc.JDBCDriver
+    username: sa
+    password: 
+
+  jpa:
+    show-sql: false
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+  hibernate:
+    ddl-auto: update
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-ui
