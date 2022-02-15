@@ -28,12 +28,25 @@ There is a periodical background process to write changes from memory to databas
   • The solution can be built using any commonly available build framework (e.g. Maven, Gradle, Ant). Providing project-local wrappers for running the build in-place are appreciated. 
   • As a part of the build, the solution should be packaged into Docker containers. Do not publish the solution to a public Docker repository; providing Dockerfiles and docker-compose or instructions on how to build and run the containerized solution should be enoug
   
-  Sample Request
+  ## Architecture
+
+![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/boot-32_5.jpeg?raw=true)
+  
+  
+  Sample Request For Credit
   ```
   {
     "userName": "nithin2",
     "transactionId": "456",
     "balance": "123"
+  }
+  ```
+  Sample Request For Debit
+  ```
+  {
+    "userName": "nithin2",
+    "transactionId": "456",
+    "balance": "-123"
   }
   ```
   
@@ -53,4 +66,8 @@ List Of Error codes
 * USER_IS_CURRENTLY_BLOCKED,
 * DUPLICATE_TRANSACTION
 	
-	
+Screenshots
+![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client1.jpeg?raw=true)
+![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client2.jpeg?raw=true)
+
+
