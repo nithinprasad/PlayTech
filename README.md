@@ -29,6 +29,14 @@ There is a periodical background process to write changes from memory to databas
   • As a part of the build, the solution should be packaged into Docker containers. Do not publish the solution to a public Docker repository; providing Dockerfiles and docker-compose or instructions on how to build and run the containerized solution should be enoug
   
   ## Architecture
+  
+  Code can run via
+
+```python
+./mvnw spring-boot:run
+```
+client ui is available at [http://localhost:8080/](http://localhost:8080/)
+
 
 ![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/boot-32_5.jpeg?raw=true)
   
@@ -65,7 +73,17 @@ List Of Error codes
 * BALANCE_CAANOT_BE_MORE_THAN_CONFIGURED_LIMIT,
 * USER_IS_CURRENTLY_BLOCKED,
 * DUPLICATE_TRANSACTION
-	
+
+Default Running on port `8080`
+
+#### Enviornment Varibale
+| Name     | Default Value  | Describtion   |
+|--------- |----------------|---------------|
+|  spring.datasource.url |jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1   | hostname/service where hsql server is running  |
+|  spring.datasource.username|sa   | username    |
+|  spring.datasource.password|   | password    |
+|  server.port|   | 8080    |
+
 Screenshots
 ![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client1.png?raw=true)
 ![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client2.png?raw=true)
