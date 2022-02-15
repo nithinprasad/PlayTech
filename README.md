@@ -74,6 +74,62 @@ List Of Error codes
 * USER_IS_CURRENTLY_BLOCKED,
 * DUPLICATE_TRANSACTION
 
+### Websocket Config
+
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/websocket").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/app");
+    }
+}
+```
+
+### Websocket Controller
+```java
+@Controller
+public class WalletController {
+
+	@Autowired
+	WalletUpdateService service;
+	
+    @MessageMapping("/update")
+    @SendTo("/topic/public")
+    public WalletUpdateResponse register(@Payload WalletUpdateInput input, SimpMessageHeaderAccessor headerAccessor) {
+    	MDC.put("username",input.getUserName());
+    	WalletUpdateResponse updateResponse= service.updateWallet(input);
+		MDC.clear();
+		return  updateResponse;
+    }
+
+}
+```
+
+### Logging
+
+Format
+```
+ ${CONSOLE_LOG_PATTERN:-%clr(SERVER){green} %clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(%X{username:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}
+```
+Sample
+```
+SERVER 2022-02-15 15:09:14.956  INFO 67464 nithin --- [nboundChannel-9] c.p.n.p.s.service.WalletUpdateService    : OutGoing Response WalletUpdateResponse(transactionId=null, balanceVersion=2, errorCode=null, balanceChange=11, balanceAfterChange=22)
+
+```
+Can grep logs by username in above case its nithin
+
+
+### Enviornment
+
 Default Running on port `8080`
 
 #### Enviornment Varibale
@@ -82,7 +138,33 @@ Default Running on port `8080`
 |  spring.datasource.url |jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1   | hostname/service where hsql server is running  |
 |  spring.datasource.username|sa   | username    |
 |  spring.datasource.password|   | password    |
-|  server.port|   | 8080    |
+|  server.port| 8080  |   default port  |
+|  limit.maxlimit| 10000  |   maximum configurable limit  |
+|  scheduler.interval| 100000  |  Scheduler interval for periodic backup  |
+
+### Docker File 
+Can build a docker image by
+```
+docker build -t nithinprasad549/playtech .
+```
+Alternative can build docker image by
+```
+./mvnw spring-boot:build-image
+```
+
+Docker compose file
+```
+ version: '3'
+ services:
+  playtech:
+    image: nithinprasad549/playtech
+    environment:
+     - spring.datasource.url=jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+     - spring.datasource.username=sa
+     - limit.maxlimit=10000
+     - scheduler.interval=100000
+```
+
 
 Screenshots
 ![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client1.png?raw=true)
