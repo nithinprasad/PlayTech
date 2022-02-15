@@ -67,7 +67,7 @@ List Of Error codes
 * DUPLICATE_TRANSACTION
 	
 Screenshots
-![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client1.jpeg?raw=true)
-![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client2.jpeg?raw=true)
+![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client1.png?raw=true)
+![Diagram](https://github.com/nithinprasad/PlayTech/blob/main/client2.png?raw=true)
 
 
