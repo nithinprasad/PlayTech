@@ -76,6 +76,9 @@ List Of Error codes
 
 ### Websocket Config
 
+Cors are disabled and allow only for same origin
+
+
 ```java
 @Configuration
 @EnableWebSocketMessageBroker
